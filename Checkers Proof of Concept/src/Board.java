@@ -45,12 +45,12 @@ public class Board {
     // Setting up positions of white pieces
     for(int x = 0; x < 8; x++) {
       for(int y = 0; y < 8; y++) {
-        if(y >= 3) {
+        if(y < 3) {
           if((x%2==0)&&(y!=1)) {
-            this.tiles[x][y] = new Piece(Type.CHECKERS_MAN, x, y, "white");
+            this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "white");
           }
-          else if((x%2!=0)&&y==1) {
-            this.tiles[x][y] = new Piece(Type.CHECKERS_MAN, x, y, "white");
+          else if((x%2!=0)&&(y==1)) {
+            this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "white");
           }
         }
       }
