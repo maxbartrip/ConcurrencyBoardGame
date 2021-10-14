@@ -41,4 +41,31 @@ public class Piece {
   public String getColour() {
     return this.colour;
   }
+  
+  /**
+   * This is a setter method will be needed for promoting pieces during a game i.e. in checkers a man may become a king.
+   * 
+   * @param newType the enum Type for the new type of the piece
+   */
+  public void setType(Type newType) {
+    this.type = newType;    
+  }
+  
+  /**
+   * This is a setter for updating the position of the piece.
+   * 
+   * @param newXPos the integer of the new position along the x axis of the piece.
+   */
+  public void setXPos(int newXPos) {
+    this.xPos = newXPos;
+  }
+  
+  /**
+   * This is a setter for updating the position of the piece.
+   * 
+   * @param newYPos the integer of the new position along the y axis of the piece.
+   */
+  public void setYPos(int newYPos) {
+    this.yPos = newYPos;
+  }
 }
