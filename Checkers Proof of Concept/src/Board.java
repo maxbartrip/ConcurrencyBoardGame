@@ -10,6 +10,11 @@ public class Board {
   private Piece[][] tiles;
   private int size;
   
+  /**
+   * This is the constructor for the board class, it checks which game the user wants to play and sets up a datastructure to store pieces accordingly.
+   * 
+   * @param game The enum GameType representing the game which the user wants to play
+   */
   public Board(GameType game) {
     this.game = game;
     switch(game) {

@@ -12,6 +12,8 @@ public class Piece {
   private String colour;
     
   /**
+   * This is the constructor which sets the information about the piece.
+   * 
    * @param type The enum type that the piece is, this describes the game that the piece is from and it's type such as man, king, queen etc.
    * @param xPos The integer position along the x axis of the board that the piece lies.
    * @param yPos The integer position along the y axis of the board that the piece lies.
