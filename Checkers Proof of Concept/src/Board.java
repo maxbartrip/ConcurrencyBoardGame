@@ -42,16 +42,15 @@ public class Board {
   }
   
   public void setupCheckers() {
-    // Setting up positions of white pieces
     for(int x = 0; x < 8; x++) {
       for(int y = 0; y < 8; y++) {
-        if(y < 3) {
-          if((x%2==0)&&(y!=1)) {
-            this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "white");
-          }
-          else if((x%2!=0)&&(y==1)) {
-            this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "white");
-          }
+        // Setting up positions of white pieces
+        if(y < 3 && ((x%2==0) && (y!=1)) || ((x%2!=0) && (y==1))) {
+          this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "white");
+        }
+        // Setting up positions of black pieces
+        if(y > 4 && ((x%2!=0) && (y!=6) || ((x%2==0) && (y==6)))) {
+          this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "black");
         }
       }
     }
