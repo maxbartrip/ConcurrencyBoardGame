@@ -56,6 +56,30 @@ public class Board {
     }
   }
   
+  public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
+    if(currentPiece != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
+  public void makeMove(int newX, int newY, Piece currentPiece) {
+    if(isMoveLegal(newX, newY, currentPiece)) {
+      int oldX = currentPiece.getxPos();
+      int oldY = currentPiece.getyPos();
+      this.tiles[oldX][oldY] = null;
+      currentPiece.setXPos(newX);
+      currentPiece.setYPos(newY);
+      this.tiles[newX][newY] = currentPiece;
+    }
+    
+    else {
+      System.out.println("That move is illegal.");
+    }
+  }
+  
   public Piece[][] getBoard() {
     return this.tiles;
   }
