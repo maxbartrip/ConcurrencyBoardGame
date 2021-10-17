@@ -71,13 +71,28 @@ public class Board {
    * @return true if the move is deemed to be legal within the rules of the game and false if it is deemed to be illega.
    */
   public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
+    Type pieceType = currentPiece.getType();
+    int currentX = currentPiece.getxPos();
+    int currentY = currentPiece.getyPos();
+    System.out.println(currentX+", "+currentY);
+    System.out.println((currentX+1)+" = X");
     switch(this.game) {
     case GAME_CHECKERS:
       if((currentPiece != null) && (newX < 8) && (newY < 8) && (this.tiles[newY][newX] == null)) {
-        return true;
+        if((pieceType==Type.CHECKERS_MAN) && (currentY+1 == newY) && (currentX+1 == newX || currentX-1 == newX)) {
+          return true;
+        }
+        else if((pieceType==Type.CHECKERS_KING) && (newX+2 >= currentX || newX-2 <= currentX)) {
+          return true;
+        }
+        else {
+          System.out.println("false1");
+          return false;
+        }
       }
       
       else {
+        System.out.println("false2");
         return false;
       }
     
