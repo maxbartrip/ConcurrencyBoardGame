@@ -135,6 +135,10 @@ public class Board {
       this.tiles[newY][newX] = currentPiece;
     }
     
+    if((currentPiece.getColour()=="white" && newY == 7) || (currentPiece.getColour() == "black" && newY == 0)) {
+      currentPiece.setType(Type.CHECKERS_KING);
+    }
+    
     else {
       System.out.println("That move is illegal.");
     }
