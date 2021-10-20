@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,5 +36,21 @@ class BoardTest {
     assertFalse(gameBoard.isMoveLegal(5, 6, blackPiece), "A move forward should not be considered a legal move and should return false.");
     assertFalse(gameBoard.isMoveLegal(6, 6, blackPiece), "A diagonally backwards move, that lands on a piece should return false.");
     assertFalse(gameBoard.isMoveLegal(5, 3, blackPiece), "A diagonal move of more than one place should be considered illegal and should return false.");
+  }
+  
+  @Test
+  void testMove() {
+    Piece whitePiece = boardArray[2][0];
+    gameBoard.makeMove(1, 3, whitePiece);
+    int newX = whitePiece.getxPos();
+    int newY = whitePiece.getyPos();
+    assertEquals(newX, 1, "The new X position of the white piece should be changed to the input position.");
+    assertEquals(newY, 3, "The new Y position of the white piece should be changed to the input position.");
+    Piece blackPiece = boardArray[5][7];
+    gameBoard.makeMove(6, 4, blackPiece);
+    newX = blackPiece.getxPos();
+    newY = blackPiece.getyPos();
+    assertEquals(newX, 6, "The new X position of the black piece should be changed to the input position.");
+    assertEquals(newY, 4, "The new Y position of the black piece should be changed to the input position.");
   }
 }
