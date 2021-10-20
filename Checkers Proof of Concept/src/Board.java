@@ -72,12 +72,13 @@ public class Board {
    */
   public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
     Type pieceType = currentPiece.getType();
+    String pieceColour = currentPiece.getColour();
     int currentX = currentPiece.getxPos();
     int currentY = currentPiece.getyPos();
     switch(this.game) {
     case GAME_CHECKERS:
       if((currentPiece != null) && (newX < 8) && (newY < 8) && (this.tiles[newY][newX] == null)) {
-        if((pieceType==Type.CHECKERS_MAN) && (currentY+1 == newY) && (currentX+1 == newX || currentX-1 == newX)) {
+        if((pieceType==Type.CHECKERS_MAN) && ((currentY+1 == newY && pieceColour == "white") || (currentY-1 == newY && pieceColour == "black")) && (currentX+1 == newX || currentX-1 == newX)) {
           return true;
         }
         else if((pieceType==Type.CHECKERS_KING) && (newX+2 >= currentX || newX-2 <= currentX)) {
