@@ -74,8 +74,6 @@ public class Board {
     Type pieceType = currentPiece.getType();
     int currentX = currentPiece.getxPos();
     int currentY = currentPiece.getyPos();
-    System.out.println(currentX+", "+currentY);
-    System.out.println((currentX+1)+" = X");
     switch(this.game) {
     case GAME_CHECKERS:
       if((currentPiece != null) && (newX < 8) && (newY < 8) && (this.tiles[newY][newX] == null)) {
@@ -86,13 +84,11 @@ public class Board {
           return true;
         }
         else {
-          System.out.println("false1");
           return false;
         }
       }
       
       else {
-        System.out.println("false2");
         return false;
       }
     
