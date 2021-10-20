@@ -33,7 +33,7 @@ class BoardTest {
     assertFalse(gameBoard.isMoveLegal(2, 4, whitePiece), "A diagonal move of more than one place should be considered illegal and should return false.");
     Piece blackPiece = boardArray[5][7];
     assertTrue(gameBoard.isMoveLegal(6, 4, blackPiece), "A diagonal move should be considered legal and should return true.");
-    assertFalse(gameBoard.isMoveLegal(5, 6, blackPiece), "A move forward should not be considered a legal move and should return false.");
+    assertFalse(gameBoard.isMoveLegal(7, 4, blackPiece), "A move forward should not be considered a legal move and should return false.");
     assertFalse(gameBoard.isMoveLegal(6, 6, blackPiece), "A diagonally backwards move, that lands on a piece should return false.");
     assertFalse(gameBoard.isMoveLegal(5, 3, blackPiece), "A diagonal move of more than one place should be considered illegal and should return false.");
   }
@@ -68,6 +68,6 @@ class BoardTest {
     blackPiece.setType(Type.CHECKERS_KING);
     assertTrue(gameBoard.isMoveLegal(6, 4, blackPiece), "Check to see if a single move is legal for a black king.");
     assertTrue(gameBoard.isMoveLegal(5, 3, blackPiece), "Check to see if a double move is legal for a black king.");
-    assertFalse(gameBoard.isMoveLegal(6, 7, blackPiece), "Check to see if a forward move is illegal for a black king.");
+    assertFalse(gameBoard.isMoveLegal(7, 4, blackPiece), "Check to see if a forward move is illegal for a black king.");
   }
 }
