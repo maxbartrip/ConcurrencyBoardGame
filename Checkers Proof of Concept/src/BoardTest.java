@@ -24,4 +24,12 @@ class BoardTest {
     assertNull(nullPiece, "A tile that has no piece in it should return null.");
     assertEquals(blackPiece.getColour(),"black", "This test checks that a black piece is in the correct position.");
   }
+  
+  @Test
+  void testLegalMove() {
+    Piece whitePiece = boardArray[2][0];
+    assertTrue(gameBoard.isMoveLegal(1, 3, whitePiece), "A diagonal move should be considered legal and should return true.");
+    assertFalse(gameBoard.isMoveLegal(0, 3, whitePiece), "A move forward should not be considered a legal move and should return false.");
+    assertFalse(gameBoard.isMoveLegal(1, 1, whitePiece), "A diagonally backwards move, that lands on a piece should return false.");
+  }
 }
