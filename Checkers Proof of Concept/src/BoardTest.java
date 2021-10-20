@@ -52,5 +52,8 @@ class BoardTest {
     newY = blackPiece.getyPos();
     assertEquals(newX, 6, "The new X position of the black piece should be changed to the input position.");
     assertEquals(newY, 4, "The new Y position of the black piece should be changed to the input position.");
+    
+    assertEquals(boardArray[3][1], whitePiece, "Check to see if the position of the white piece in the array has been updated.");
+    assertEquals(boardArray[4][6], blackPiece, "Check to see if the position of the black piece in the array has been updated.");
   }
 }
