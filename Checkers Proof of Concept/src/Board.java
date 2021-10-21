@@ -78,10 +78,10 @@ public class Board {
     switch(this.game) {
     case GAME_CHECKERS:
       if((currentPiece != null) && (newX < 8) && (newY < 8) && (this.tiles[newY][newX] == null)) {
-        if((pieceType==Type.CHECKERS_MAN) && ((currentY+1 == newY && pieceColour == "white") || (currentY-1 == newY && pieceColour == "black")) && (currentX+1 == newX || currentX-1 == newX)) {
+        if((pieceType == Type.CHECKERS_MAN && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) == 1) && ((currentY+1 == newY && pieceColour == "white") || (currentY-1 == newY && pieceColour == "black")))) {
           return true;
         }
-        else if((pieceType==Type.CHECKERS_KING) && (newX+2 >= currentX || newX-2 <= currentX)) {
+        else if((pieceType==Type.CHECKERS_KING && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) < 3))) {
           return true;
         }
         else {
