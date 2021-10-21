@@ -111,6 +111,30 @@ public class Board {
   }
   
   /**
+   * This method checks if a given position is diagonal to the given piece.
+   * 
+   * @param newX The integer of the given position along the x axis.
+   * @param newY The integer of the given position along the y axis.
+   * @param currentPiece The object Piece of the given piece whose position is being checked.
+   * @return true if the given position is diagonal to the position of the current piece, false if it is not.
+   */
+  public boolean isMoveDiagonal(int newX, int newY, Piece currentPiece) {
+    return Math.abs(newY - currentPiece.getyPos()) == Math.abs(newX - currentPiece.getxPos());
+  }
+  
+  /**
+   * This method finds the distance from a given position on the board, to a given piece.
+   * 
+   * @param newX The integer of the given position along the x axis.
+   * @param newY The integer of the given position along the y axis.
+   * @param currentPiece The object Piece of the given piece whose distance from the position we want to find.
+   * @return The integer of the distance from the position of the piece to the given position.
+   */
+  public int moveDistance(int newX, int newY, Piece currentPiece) {
+    return Math.max(Math.abs(newY - currentPiece.getyPos()), Math.abs(newX - currentPiece.getxPos()));
+  }
+  
+  /**
    * This method first checks if the move to be made is legal:
    * 
    * If it is legal, it sets the position in the tiles array where the selected piece resides to null and sets the new position on tiles to be the selected piece.
