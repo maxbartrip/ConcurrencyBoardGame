@@ -70,4 +70,22 @@ class BoardTest {
     assertTrue(gameBoard.isMoveLegal(5, 3, blackPiece), "Check to see if a double move is legal for a black king.");
     assertFalse(gameBoard.isMoveLegal(7, 4, blackPiece), "Check to see if a forward move is illegal for a black king.");
   }
+  
+  @Test
+  void testMoveKing() {
+    Piece whitePiece = boardArray[2][0];
+    whitePiece.setType(Type.CHECKERS_KING);
+    gameBoard.makeMove(2, 4, whitePiece);
+    int newX = whitePiece.getxPos();
+    int newY = whitePiece.getyPos();
+    assertEquals(newX, 2, "The new X position of the white King piece should be updated after a double diagonal move.");
+    assertEquals(newY, 4, "The new Y position of the white King piece should be updated after a double diagonal move.");
+    Piece blackPiece = boardArray[5][7];
+    blackPiece.setType(Type.CHECKERS_KING);
+    gameBoard.makeMove(5, 3, blackPiece);
+    newX = blackPiece.getxPos();
+    newY = blackPiece.getyPos();
+    assertEquals(newX, 5, "Check of X position for black King pieces");
+    assertEquals(newY, 3, "Check of Y position for black King pieces");
+  }
 }
