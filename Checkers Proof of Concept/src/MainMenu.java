@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,6 +11,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainMenu extends Application {
+  
+  private GameType selectedGame;
 
   @Override
   public void start(Stage stage) throws Exception {
@@ -29,6 +33,52 @@ public class MainMenu extends Application {
     damaBtn.setDisable(true);
     
     Button startBtn = new Button("Start Game");
+    
+    checkersBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        selectedGame = GameType.GAME_CHECKERS;
+      }
+    });
+    
+    chessBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        selectedGame = GameType.GAME_CHESS;
+      }
+    });
+    
+    draughtsBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        selectedGame = GameType.GAME_DRAUGHTS;
+      }
+    });
+    
+    gomokuBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        selectedGame = GameType.GAME_GOMOKU;
+      }
+    });
+    
+    damaBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        selectedGame = GameType.GAME_DAMA;
+      }
+    });
+    
+    startBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        if (selectedGame != null) {
+          Board gameBoard = new Board(selectedGame);
+          gameBoard.setupCheckers();
+          // Temporary method that is only used in this part of the project
+        }
+      }
+    });
     
     HBox buttonLayout = new HBox(20, checkersBtn, chessBtn, draughtsBtn, gomokuBtn, damaBtn);
     buttonLayout.setAlignment(Pos.CENTER);
