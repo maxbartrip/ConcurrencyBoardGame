@@ -174,4 +174,13 @@ public class Board {
     return this.tiles;
   }
   
+  /**
+   * This is a simple getter method that returns the size of the board, this size-1 is the maximum index of the Piece array.
+   * 
+   * @return the integer size, which represents the size of the board.
+   */
+  public int getSize() {
+    return this.size;
+  }
+  
 }
