@@ -3,6 +3,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -76,6 +78,13 @@ public class MainMenu extends Application {
           Board gameBoard = new Board(selectedGame);
           gameBoard.setupCheckers();
           // Temporary method that is only used in this part of the project
+        }
+        else {
+          Alert plsSelect = new Alert(AlertType.WARNING);
+          plsSelect.setTitle("No game selected!");
+          plsSelect.setHeaderText("No game has been selected!");
+          plsSelect.setContentText("Please select a game before clicking start game.");
+          plsSelect.showAndWait();
         }
       }
     });
