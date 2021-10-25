@@ -26,11 +26,13 @@ public class MainMenu extends Application {
     Button gomokuBtn = new Button("Play Gomoku");
     gomokuBtn.setDisable(true);
     Button damaBtn = new Button("Play Dama");
-    damaBtn.setDisable(true);    
+    damaBtn.setDisable(true);
+    
+    Button startBtn = new Button("Start Game");
     
     HBox buttonLayout = new HBox(20, checkersBtn, chessBtn, draughtsBtn, gomokuBtn, damaBtn);
     buttonLayout.setAlignment(Pos.CENTER);
-    VBox menuLayout = new VBox(20, menuTitle, buttonLayout);
+    VBox menuLayout = new VBox(20, menuTitle, buttonLayout, startBtn);
     menuLayout.setAlignment(Pos.CENTER);
     Scene menuScene = new Scene(menuLayout, 1280, 720);
     stage.setScene(menuScene);
