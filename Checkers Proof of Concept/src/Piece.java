@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * @author Max
@@ -67,5 +70,33 @@ public class Piece {
    */
   public void setYPos(int newYPos) {
     this.yPos = newYPos;
+  }
+  
+  /**
+   * This method returns the InputStream for the location of the image corresponding to this piece.
+   * 
+   * @return the InputStream for the location of the image corresponding to the piece.
+   * @throws FileNotFoundException if the location of the image cannot be found an appropriate exception is thrown.
+   */
+  public InputStream getImage() throws Exception {
+    InputStream stream = null;
+    try {
+      if(this.type==Type.CHECKERS_MAN && this.colour=="white") {
+        stream = new FileInputStream("src/resources/CHECKERS_WHITE_MAN.png");
+      }
+      else if (this.type==Type.CHECKERS_MAN && this.colour=="black") {
+        stream = new FileInputStream("src/resources/CHECKERS_BLACK_MAN.png");
+      }
+      else if (this.type==Type.CHECKERS_KING && this.colour=="white") {
+        stream = new FileInputStream("src/resources/CHECKERS_WHITE_KING.png");
+      }
+      else if (this.type==Type.CHECKERS_KING && this.colour=="black") {
+        stream = new FileInputStream("src/resources/CHECKERS_WHITE_KING.png");
+      }
+    }
+    catch(FileNotFoundException e) {
+      throw new FileNotFoundException("ERROR: Image cannot be located.");
+    }
+    return stream;
   }
 }
