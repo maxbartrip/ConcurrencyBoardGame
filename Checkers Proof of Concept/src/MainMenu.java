@@ -81,6 +81,7 @@ public class MainMenu extends Application {
           GameInterface gameUI = new GameInterface(gameBoard);
           Scene gameScene = gameUI.getScene();
           stage.setScene(gameScene);
+          stage.setResizable(false);
           stage.show();
         }
         else {
