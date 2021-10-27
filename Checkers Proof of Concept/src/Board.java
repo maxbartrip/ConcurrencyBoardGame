@@ -84,6 +84,9 @@ public class Board {
         else if((pieceType==Type.CHECKERS_KING && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) < 3))) {
           return true;
         }
+        else if(takesPiece(newX, newY, currentPiece)) {
+          return true;
+        }
         else {
           return false;
         }
@@ -150,6 +153,11 @@ public class Board {
     if(isMoveLegal(newX, newY, currentPiece)) {
       int oldX = currentPiece.getxPos();
       int oldY = currentPiece.getyPos();
+      if (takesPiece(newX, newY, currentPiece)) {
+        int betweenX = oldX + (newX-oldX)/2;
+        int betweenY = oldY + (newY-oldY)/2;
+        this.tiles[betweenY][betweenX] = null;
+      }
       this.tiles[oldY][oldX] = null;
       currentPiece.setXPos(newX);
       currentPiece.setYPos(newY);
@@ -199,7 +207,7 @@ public class Board {
     int betweenY = currentY + (newY - currentY)/2;
     Piece takenPiece = this.tiles[betweenY][betweenX];
     String pieceColour = currentPiece.getColour();
-    if(takenPiece!=null && isMoveDiagonal(newX, newY, currentPiece) && ((currentY+2 == newY && pieceColour == "white") || (currentY-2 == newY && pieceColour == "black")) && takenPiece.getColour()!=currentPiece.getColour()) {
+    if(takenPiece!=null && isMoveDiagonal(newX, newY, currentPiece) && ((currentY+2 == newY && pieceColour == "white") || (currentY-2 == newY && pieceColour == "black") || currentPiece.getType() == Type.CHECKERS_KING) && takenPiece.getColour()!=currentPiece.getColour()) {
       return true;
     }
     else {
