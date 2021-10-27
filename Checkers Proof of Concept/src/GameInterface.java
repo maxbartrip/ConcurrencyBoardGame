@@ -1,5 +1,6 @@
 import java.io.InputStream;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -67,6 +68,24 @@ public class GameInterface {
               gameBoard.makeMove(newTile.getBoardX(), newTile.getBoardY(), selectedPiece);
               updateBoard(gameBoard);
               selectedPiece=null;
+              if (gameBoard.getWhiteCount() == 0) {
+                Alert gameWon = new Alert(AlertType.WARNING);
+                gameWon.setTitle("BLACK WINS!");
+                gameWon.setHeaderText("GAME OVER!");
+                gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
+                gameWon.showAndWait();
+                Platform.exit();
+                System.exit(0);
+              }
+              else if(gameBoard.getBlackCount() == 0) {
+                Alert gameWon = new Alert(AlertType.WARNING);
+                gameWon.setTitle("WHITE WINS!");
+                gameWon.setHeaderText("GAME OVER!");
+                gameWon.setContentText("THE WINNER IS WHITE!\nClosing game.");
+                gameWon.showAndWait();
+                Platform.exit();
+                System.exit(0);
+              }
             }
           }
           

@@ -1,4 +1,3 @@
-
 /**
  * @author Max
  * 
@@ -9,6 +8,8 @@ public class Board {
   private GameType game;
   private Piece[][] tiles;
   private int size;
+  private int whiteCount;
+  private int blackCount;
   
   /**
    * This is the constructor for the board class, it checks which game the user wants to play and sets up a data structure to store pieces accordingly.
@@ -17,6 +18,8 @@ public class Board {
    */
   public Board(GameType game) {
     this.game = game;
+    this.whiteCount = 0;
+    this.blackCount = 0;
     switch(game) {
     case GAME_CHECKERS:
       this.size = 8;
@@ -52,10 +55,12 @@ public class Board {
         // Setting up positions of white pieces
         if(y < 3 && ((x%2==0) && (y!=1)) || ((x%2!=0) && (y==1))) {
           this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "white");
+          this.whiteCount++;
         }
         // Setting up positions of black pieces
         if(y > 4 && ((x%2!=0) && (y!=6) || ((x%2==0) && (y==6)))) {
           this.tiles[y][x] = new Piece(Type.CHECKERS_MAN, x, y, "black");
+          this.blackCount++;
         }
       }
     }
@@ -156,6 +161,14 @@ public class Board {
       if (takesPiece(newX, newY, currentPiece)) {
         int betweenX = oldX + (newX-oldX)/2;
         int betweenY = oldY + (newY-oldY)/2;
+        String takenColour = this.tiles[betweenY][betweenX].getColour();
+        boolean isWhite = takenColour.equals("white");
+        if(isWhite) {
+          this.whiteCount--;
+        }
+        else {
+          this.blackCount--;
+        }
         this.tiles[betweenY][betweenX] = null;
       }
       this.tiles[oldY][oldX] = null;
@@ -213,6 +226,14 @@ public class Board {
     else {
       return false;
     }
+  }
+  
+  public int getWhiteCount() {
+    return this.whiteCount;
+  }
+  
+  public int getBlackCount() {
+    return this.blackCount;
   }
   
 }
