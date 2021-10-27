@@ -91,7 +91,7 @@ public class Piece {
         stream = new FileInputStream("src/resources/CHECKERS_WHITE_KING.png");
       }
       else if (this.type==Type.CHECKERS_KING && this.colour=="black") {
-        stream = new FileInputStream("src/resources/CHECKERS_WHITE_KING.png");
+        stream = new FileInputStream("src/resources/CHECKERS_BLACK_KING.png");
       }
     }
     catch(FileNotFoundException e) {
