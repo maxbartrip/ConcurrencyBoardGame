@@ -183,4 +183,28 @@ public class Board {
     return this.size;
   }
   
+  /**
+   * This method takes a newX and newY position and a piece and checks if the move from the current x and y position to the new positions would take a piece or not.
+   * If the move does take a piece, then it returns true, if it does not take a piece, then it returns false.
+   * 
+   * @param newX The integer of the new position along the x axis that this move would take the piece.
+   * @param newY The integer of the new position along the y axis that this move would take the piece.
+   * @param currentPiece The object of the selected game piece who's move is being checked.
+   * @return Boolean true if the move takes a piece, false if it does not.
+   */
+  public boolean takesPiece(int newX, int newY, Piece currentPiece) {
+    int currentX = currentPiece.getxPos();
+    int currentY = currentPiece.getyPos();
+    int betweenX = currentX + (newX - currentX)/2;
+    int betweenY = currentY + (newY - currentY)/2;
+    Piece takenPiece = this.tiles[betweenY][betweenX];
+    String pieceColour = currentPiece.getColour();
+    if(takenPiece!=null && isMoveDiagonal(newX, newY, currentPiece) && ((currentY+2 == newY && pieceColour == "white") || (currentY-2 == newY && pieceColour == "black")) && takenPiece.getColour()!=currentPiece.getColour()) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
 }
