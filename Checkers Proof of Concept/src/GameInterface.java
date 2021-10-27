@@ -1,9 +1,13 @@
 import java.io.InputStream;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
@@ -16,6 +20,8 @@ public class GameInterface {
   
   private static Scene gameScene;
   private Pane gamePane;
+  private Piece selectedPiece;
+  private Group pieceGroup;
 
   /**
    * This constructor takes a gameBoard and creates a visual board that can be displayed on a javaFX interface, based on the board that has been input.
@@ -26,6 +32,7 @@ public class GameInterface {
     int boardSize = gameBoard.getSize();
     boolean dark;
     this.gamePane = new Pane();
+    this.pieceGroup = new Group();
     Group tileGroup = new Group();
     
     for(int i=0; i<boardSize; i++) {
@@ -37,10 +44,31 @@ public class GameInterface {
           dark = false;
         }
         Tile newTile = new Tile(dark, i, j);
+        newTile.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+          @Override
+          public void handle(MouseEvent event) {
+            //System.out.println("X = "+newTile.getBoardX()+" Y = "+newTile.getBoardY());
+            if (selectedPiece==null) {
+              Alert selectPiece = new Alert(AlertType.WARNING);
+              selectPiece.setTitle("No piece selected!");
+              selectPiece.setHeaderText("Please select a piece");
+              selectPiece.setContentText("In order to make a move you must first select a piece by clicking on it.");
+              selectPiece.showAndWait();
+            }
+            else {
+              gameBoard.makeMove(newTile.getBoardX(), newTile.getBoardY(), selectedPiece);
+              updateBoard(gameBoard);
+              selectedPiece=null;
+            }
+          }
+          
+        });
+        
         tileGroup.getChildren().add(newTile);
       }
     }
-    this.gamePane.getChildren().addAll(tileGroup);
+    this.gamePane.getChildren().addAll(tileGroup, this.pieceGroup);
     updateBoard(gameBoard);
     this.gameScene = new Scene(this.gamePane);
   }
@@ -57,6 +85,7 @@ public class GameInterface {
   public void updateBoard(Board gameBoard) {
     int boardSize = gameBoard.getSize();
     Piece[][] pieceArray = gameBoard.getBoard();
+    this.pieceGroup.getChildren().clear();
     
     for(int i=0; i<boardSize; i++) {
       for(int j=0; j<boardSize; j++) {
@@ -72,7 +101,18 @@ public class GameInterface {
             checkersView.setSmooth(true);
             checkersView.setX(j*64);
             checkersView.setY(i*64);
-            this.gamePane.getChildren().add(checkersView);
+            
+            checkersView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+              @Override
+              public void handle(MouseEvent event) {
+                int pieceX = (int) checkersView.getX()/64;
+                int pieceY = (int) checkersView.getY()/64;
+                selectedPiece = pieceArray[pieceY][pieceX];
+                //System.out.println(selectedPiece.getColour());
+              }
+            });
+            
+            this.pieceGroup.getChildren().add(checkersView);
           }
           catch(Exception e) {
             e.printStackTrace();
