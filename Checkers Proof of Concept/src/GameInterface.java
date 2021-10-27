@@ -56,6 +56,13 @@ public class GameInterface {
               selectPiece.setContentText("In order to make a move you must first select a piece by clicking on it.");
               selectPiece.showAndWait();
             }
+            else if(!gameBoard.isMoveLegal(newTile.getBoardX(), newTile.getBoardY(), selectedPiece)){
+              Alert illegalMove = new Alert(AlertType.WARNING);
+              illegalMove.setTitle("Illegal Move!");
+              illegalMove.setHeaderText("The move you attempted is illegal!");
+              illegalMove.setContentText("A legal move for a man is only in the forward direction and must be diagonal, a king can move any direction as long as it is diagonal.");
+              illegalMove.showAndWait();
+            }
             else {
               gameBoard.makeMove(newTile.getBoardX(), newTile.getBoardY(), selectedPiece);
               updateBoard(gameBoard);
