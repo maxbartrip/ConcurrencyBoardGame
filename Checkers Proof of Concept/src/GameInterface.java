@@ -1,5 +1,9 @@
+import java.io.InputStream;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
@@ -11,6 +15,7 @@ import javafx.scene.layout.Pane;
 public class GameInterface {
   
   private static Scene gameScene;
+  private Pane gamePane;
 
   /**
    * This constructor takes a gameBoard and creates a visual board that can be displayed on a javaFX interface, based on the board that has been input.
@@ -18,15 +23,9 @@ public class GameInterface {
    * @param gameBoard the gameBoard of the current game so that the board interface can be initialised
    */
   public GameInterface(Board gameBoard) {
-    //InputStream stream = new FileInputStream("src/resources/CHECKERS_BLACK_KING.png");
-    //Image checkersPiece = new Image(stream);
-    
-    //ImageView checkersView = new ImageView();
-    //checkersView.setImage(checkersPiece);
-    
     int boardSize = gameBoard.getSize();
     boolean dark;
-    Pane gamePane = new Pane();
+    this.gamePane = new Pane();
     Group tileGroup = new Group();
     
     for(int i=0; i<boardSize; i++) {
@@ -41,8 +40,9 @@ public class GameInterface {
         tileGroup.getChildren().add(newTile);
       }
     }
-    gamePane.getChildren().addAll(tileGroup);
-    this.gameScene = new Scene(gamePane);
+    this.gamePane.getChildren().addAll(tileGroup);
+    updateBoard(gameBoard);
+    this.gameScene = new Scene(this.gamePane);
   }
   
   /**
@@ -55,6 +55,32 @@ public class GameInterface {
   }
   
   public void updateBoard(Board gameBoard) {
+    int boardSize = gameBoard.getSize();
+    Piece[][] pieceArray = gameBoard.getBoard();
     
+    for(int i=0; i<boardSize; i++) {
+      for(int j=0; j<boardSize; j++) {
+        if (pieceArray[i][j] !=null) {
+          try {
+            InputStream stream = pieceArray[i][j].getImage();
+            Image checkersPiece = new Image(stream);
+            ImageView checkersView = new ImageView();
+            checkersView.setImage(checkersPiece);
+            checkersView.setFitHeight(64);
+            checkersView.setFitWidth(64);
+            checkersView.setPreserveRatio(true);
+            checkersView.setSmooth(true);
+            checkersView.setX(j*64);
+            checkersView.setY(i*64);
+            this.gamePane.getChildren().add(checkersView);
+          }
+          catch(Exception e) {
+            e.printStackTrace();
+          }
+          
+        }
+      }
+    }
+        
   }
 }
