@@ -78,6 +78,10 @@ public class MainMenu extends Application {
           Board gameBoard = new Board(selectedGame);
           gameBoard.setupCheckers();
           // Temporary method that is only used in this part of the project
+          GameInterface gameUI = new GameInterface(gameBoard);
+          Scene gameScene = gameUI.getScene();
+          stage.setScene(gameScene);
+          stage.show();
         }
         else {
           Alert plsSelect = new Alert(AlertType.WARNING);
