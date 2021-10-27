@@ -68,7 +68,7 @@ public class Board {
    * @param newX The integer of the new x position on the board of the selected piece.
    * @param newY The integer of the new y position on the board of the selected piece.
    * @param currentPiece The object Piece of the selected game piece that is going to be moved.
-   * @return true if the move is deemed to be legal within the rules of the game and false if it is deemed to be illega.
+   * @return true if the move is deemed to be legal within the rules of the game and false if it is deemed to be illegal.
    */
   public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
     Type pieceType = currentPiece.getType();
