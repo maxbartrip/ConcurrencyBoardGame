@@ -101,6 +101,7 @@ public class MainMenu extends Application {
     Scene menuScene = new Scene(menuLayout, 1280, 720);
     stage.setScene(menuScene);
     stage.show();
+    startBtn.requestFocus();
   }
   
   public static void main(String[] args) {
