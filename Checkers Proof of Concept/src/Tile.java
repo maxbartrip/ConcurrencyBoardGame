@@ -7,11 +7,11 @@ public class Tile extends Rectangle {
   private int boardY;
   
   public Tile(boolean dark, int boardX, int boardY) {
-    setWidth(64);
-    setHeight(64);
+    setWidth(128);
+    setHeight(128);
     setFill(dark ? Color.BEIGE : Color.DARKSEAGREEN);
-    setX(boardX*64);
-    setY(boardY*64);
+    setX(boardX*128);
+    setY(boardY*128);
     this.boardX = boardX;
     this.boardY = boardY;
   }

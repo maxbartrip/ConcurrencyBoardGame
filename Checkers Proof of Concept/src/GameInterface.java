@@ -121,18 +121,18 @@ public class GameInterface {
             Image checkersPiece = new Image(stream);
             ImageView checkersView = new ImageView();
             checkersView.setImage(checkersPiece);
-            checkersView.setFitHeight(64);
-            checkersView.setFitWidth(64);
+            checkersView.setFitHeight(128);
+            checkersView.setFitWidth(128);
             checkersView.setPreserveRatio(true);
             checkersView.setSmooth(true);
-            checkersView.setX(j*64);
-            checkersView.setY(i*64);
+            checkersView.setX(j*128);
+            checkersView.setY(i*128);
             
             checkersView.setOnMouseClicked(new EventHandler<MouseEvent>() {
               @Override
               public void handle(MouseEvent event) {
-                int pieceX = (int) checkersView.getX()/64;
-                int pieceY = (int) checkersView.getY()/64;
+                int pieceX = (int) checkersView.getX()/128;
+                int pieceY = (int) checkersView.getY()/128;
                 selectedPiece = pieceArray[pieceY][pieceX];
                 //System.out.println(selectedPiece.getColour());
               }
