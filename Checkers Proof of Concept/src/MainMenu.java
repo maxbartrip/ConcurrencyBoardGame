@@ -80,9 +80,10 @@ public class MainMenu extends Application {
           // Temporary method that is only used in this part of the project
           GameInterface gameUI = new GameInterface(gameBoard);
           Scene gameScene = gameUI.getScene();
-          stage.setScene(gameScene);
-          stage.setResizable(false);
-          stage.show();
+          Stage newStage = new Stage();
+          newStage.setScene(gameScene);
+          newStage.setResizable(false);
+          newStage.show();
         }
         else {
           Alert plsSelect = new Alert(AlertType.WARNING);
