@@ -84,9 +84,6 @@ public class MainMenu extends Application {
           newStage.setScene(gameScene);
           newStage.setResizable(false);
           newStage.show();
-          GameOverThread gameOver = new GameOverThread(gameBoard, newStage);
-          gameOver.setDaemon(true);
-          gameOver.start();
         }
         else {
           Alert plsSelect = new Alert(AlertType.WARNING);

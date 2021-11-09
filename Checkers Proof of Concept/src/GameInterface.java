@@ -1,6 +1,5 @@
 import java.io.InputStream;
 
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Window;
 
 /**
  * @author Max
@@ -49,7 +49,6 @@ public class GameInterface {
 
           @Override
           public void handle(MouseEvent event) {
-            //System.out.println("X = "+newTile.getBoardX()+" Y = "+newTile.getBoardY());
             if (selectedPiece==null) {
               Alert selectPiece = new Alert(AlertType.WARNING);
               selectPiece.setTitle("No piece selected!");
@@ -74,8 +73,8 @@ public class GameInterface {
                 gameWon.setHeaderText("GAME OVER!");
                 gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
                 gameWon.showAndWait();
-                Platform.exit();
-                System.exit(0);
+                Window stage = newTile.getScene().getWindow();
+                stage.hide();
               }
               else if(gameBoard.getBlackCount() == 0) {
                 Alert gameWon = new Alert(AlertType.WARNING);
@@ -83,8 +82,8 @@ public class GameInterface {
                 gameWon.setHeaderText("GAME OVER!");
                 gameWon.setContentText("THE WINNER IS WHITE!\nClosing game.");
                 gameWon.showAndWait();
-                Platform.exit();
-                System.exit(0);
+                Window stage = newTile.getScene().getWindow();
+                stage.hide();
               }
             }
           }
@@ -134,7 +133,6 @@ public class GameInterface {
                 int pieceX = (int) checkersView.getX()/128;
                 int pieceY = (int) checkersView.getY()/128;
                 selectedPiece = pieceArray[pieceY][pieceX];
-                //System.out.println(selectedPiece.getColour());
               }
             });
             
