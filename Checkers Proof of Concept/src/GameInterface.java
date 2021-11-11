@@ -7,6 +7,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Window;
@@ -49,6 +52,16 @@ public class GameInterface {
 
           @Override
           public void handle(MouseEvent event) {
+            if(event.getButton() == MouseButton.MIDDLE) {
+              Alert gameWon = new Alert(AlertType.WARNING);
+              gameWon.setTitle("BLACK WINS!");
+              gameWon.setHeaderText("GAME OVER!");
+              gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
+              gameWon.showAndWait();
+              Window stage = newTile.getScene().getWindow();
+              stage.hide();
+              return;
+            }
             if (selectedPiece==null) {
               Alert selectPiece = new Alert(AlertType.WARNING);
               selectPiece.setTitle("No piece selected!");
@@ -63,6 +76,7 @@ public class GameInterface {
               illegalMove.setContentText("A legal move for a man is only in the forward direction and must be diagonal, a king can move any direction as long as it is diagonal.");
               illegalMove.showAndWait();
             }
+            
             else {
               gameBoard.makeMove(newTile.getBoardX(), newTile.getBoardY(), selectedPiece);
               updateBoard(gameBoard);
@@ -120,18 +134,18 @@ public class GameInterface {
             Image checkersPiece = new Image(stream);
             ImageView checkersView = new ImageView();
             checkersView.setImage(checkersPiece);
-            checkersView.setFitHeight(128);
-            checkersView.setFitWidth(128);
+            checkersView.setFitHeight(64);
+            checkersView.setFitWidth(64);
             checkersView.setPreserveRatio(true);
             checkersView.setSmooth(true);
-            checkersView.setX(j*128);
-            checkersView.setY(i*128);
+            checkersView.setX(j*64);
+            checkersView.setY(i*64);
             
             checkersView.setOnMouseClicked(new EventHandler<MouseEvent>() {
               @Override
               public void handle(MouseEvent event) {
-                int pieceX = (int) checkersView.getX()/128;
-                int pieceY = (int) checkersView.getY()/128;
+                int pieceX = (int) checkersView.getX()/64;
+                int pieceY = (int) checkersView.getY()/64;
                 selectedPiece = pieceArray[pieceY][pieceX];
               }
             });
