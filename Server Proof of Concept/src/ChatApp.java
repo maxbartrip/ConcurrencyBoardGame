@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 public class ChatApp extends Application {
   
   private boolean isServer = true;
-  /* This value can be modified to change whether a server or a client is created. When set to true it will create a server,
+  /* 
+   * This value can be modified to change whether a server or a client is created. When set to true it will create a server,
    * when set to false it will create a client that connects to that server. A server must already be running for a client to connect.
   */
   
