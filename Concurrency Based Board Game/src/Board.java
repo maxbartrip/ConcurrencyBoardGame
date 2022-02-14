@@ -27,12 +27,12 @@ public class Board {
       for(int x = 0; x < 8; x++) {
         for(int y = 0; y < 8; y++) {
           // Setting up positions of white pieces
-          if(y < 3 && ((x%2==0) && (y!=1)) || ((x%2!=0) && (y==1))) {
+          if(y < 3 && ((x%2!=0) && (y!=1)) || ((x%2==0) && (y==1))) {
             this.tiles[x][y] = new Piece(Type.CHECKERS_MAN, x, y, Colour.WHITE);
             this.whiteCount++;
           }
           // Setting up positions of black pieces
-          if(y > 4 && ((x%2!=0) && (y!=6) || ((x%2==0) && (y==6)))) {
+          if(y > 4 && ((x%2==0) && (y!=6) || ((x%2!=0) && (y==6)))) {
             this.tiles[x][y] = new Piece(Type.CHECKERS_MAN, x, y, Colour.BLACK);
             this.blackCount++;
           }
