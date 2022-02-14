@@ -14,34 +14,53 @@ public class Board {
   /**
    * This is the constructor for the board class, it checks which game the user wants to play and sets up a data structure to store pieces accordingly.
    * 
-   * @param game The enum GameType representing the game which the user wants to play
+   * @param game The enum GameType representing the game which the user wants to play.
    */
-  public Board (GameType game) {
+  public Board(GameType game) {
     this.game = game;
     this.whiteCount = 0;
     this.blackCount = 0;
     switch(game) {
     case CHECKERS:
       this.size = 8;
+      this.tiles = new Piece[this.size][this.size];
+      for(int x = 0; x < 8; x++) {
+        for(int y = 0; y < 8; y++) {
+          // Setting up positions of white pieces
+          if(y < 3 && ((x%2==0) && (y!=1)) || ((x%2!=0) && (y==1))) {
+            this.tiles[x][y] = new Piece(Type.CHECKERS_MAN, x, y, Colour.WHITE);
+            this.whiteCount++;
+          }
+          // Setting up positions of black pieces
+          if(y > 4 && ((x%2!=0) && (y!=6) || ((x%2==0) && (y==6)))) {
+            this.tiles[x][y] = new Piece(Type.CHECKERS_MAN, x, y, Colour.BLACK);
+            this.blackCount++;
+          }
+        }
+      }
       break;
       
     case CHESS:
       this.size = 8;
+      this.tiles = new Piece[this.size][this.size];
       break;
       
     case DRAUGHTS:
       this.size = 10;
+      this.tiles = new Piece[this.size][this.size];
       break;
       
     case GOMOKU:
       this.size = 15;
+      this.tiles = new Piece[this.size][this.size];
       break;
       
     case DAMA:
       this.size = 8;
+      this.tiles = new Piece[this.size][this.size];
       break;
     }
-    this.tiles = new Piece[this.size][this.size];
+    //this.tiles = new Piece[this.size][this.size];
   }
   
   /**
@@ -68,6 +87,18 @@ public class Board {
     return Math.max(Math.abs(newY - currentPiece.getyPos()), Math.abs(newX - currentPiece.getxPos()));
   }
   
+  public boolean takesPiece(int newX, int newY, Piece currentPiece) {
+    return false;
+  }
+  
+  public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
+    return false;
+  }
+  
+  public void makeMove(int newX, int newY, Piece currentPiece) {
+    
+  }
+  
   /**
    * This is a simple getter method that is used for testing purposes.
    * 
@@ -85,4 +116,21 @@ public class Board {
   public int getSize() {
     return this.size;
   }
+  
+  /**
+   * This method simply returns the number of black or white pieces on the board.
+   * 
+   * @param colour the enum Colour of which piece count you would like to get e.g. if colour is BLACK it will return the number of black pieces.
+   * @return the integer count of that coloured piece present on the board.
+   */
+  public int getCount(Colour colour) {
+    if (colour == Colour.BLACK) {
+      return this.blackCount;
+    }
+    else {
+      return this.whiteCount;
+    }
+  }
+  
+  
 }
