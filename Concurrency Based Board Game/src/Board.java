@@ -88,7 +88,18 @@ public class Board {
   }
   
   public boolean takesPiece(int newX, int newY, Piece currentPiece) {
-    return false;
+    int currentX = currentPiece.getxPos();
+    int currentY = currentPiece.getyPos();
+    int betweenX = currentX + (newX - currentX)/2;
+    int betweenY = currentY + (newY - currentY)/2;
+    Piece takenPiece = this.tiles[betweenX][betweenY];
+    Colour pieceColour = currentPiece.getColour();
+    if(takenPiece!=null && isMoveDiagonal(newX, newY, currentPiece) && ((currentY+2 == newY && pieceColour == Colour.WHITE) || (currentY-2 == newY && pieceColour == Colour.BLACK) || currentPiece.getType() == Type.CHECKERS_KING) && takenPiece.getColour()!=currentPiece.getColour()) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
   
   public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
