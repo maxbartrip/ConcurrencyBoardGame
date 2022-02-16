@@ -103,7 +103,46 @@ public class Board {
   }
   
   public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
-    return false;
+    Type pieceType = currentPiece.getType();
+    Colour pieceColour = currentPiece.getColour();
+    int currentX = currentPiece.getxPos();
+    int currentY = currentPiece.getyPos();
+    switch(this.game) {
+    case CHECKERS:
+      if((currentPiece != null) && (newX < 8) && (newY < 8) && (this.tiles[newX][newY] == null)) {
+        if((pieceType == Type.CHECKERS_MAN && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) == 1) && ((currentY+1 == newY && pieceColour == Colour.WHITE) || (currentY-1 == newY && pieceColour == Colour.BLACK)))) {
+          return true;
+        }
+        else if((pieceType==Type.CHECKERS_KING && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) < 3))) {
+          return true;
+        }
+        else if(takesPiece(newX, newY, currentPiece)) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      
+      else {
+        return false;
+      }
+      
+    case CHESS:
+      return false;
+      
+    case DRAUGHTS:
+      return false;
+      
+    case GOMOKU:
+      return false;
+      
+    case DAMA:
+      return false;
+      
+    default:
+      return false;
+    }
   }
   
   public void makeMove(int newX, int newY, Piece currentPiece) {
