@@ -87,6 +87,14 @@ public class Board {
     return Math.max(Math.abs(newY - currentPiece.getyPos()), Math.abs(newX - currentPiece.getxPos()));
   }
   
+  /**
+   * This method checks if a given position is in a forward direction for a given piece.
+   * 
+   * @param newX The integer of the given position along the x axis.
+   * @param newY The integer of the given position along the y axis.
+   * @param currentPiece The object Piece of the given piece whose distance from the position we want to find.
+   * @return true if the piece is moving in a forwards direction relative to its colour, false if it is not.
+   */
   public boolean isForward(int newX, int newY, Piece currentPiece) {
     Colour pieceColour = currentPiece.getColour();
     int currentY = currentPiece.getyPos();
@@ -98,6 +106,15 @@ public class Board {
     }    
   }
   
+  /**
+   * This method takes a newX and newY position and a piece and checks if the move from the current x and y position to the new positions would take a piece or not.
+   * If the move does take a piece, then it returns true, if it does not take a piece, then it returns false.
+   * 
+   * @param newX The integer of the new position along the x axis that this move would take the piece.
+   * @param newY The integer of the new position along the y axis that this move would take the piece.
+   * @param currentPiece The object of the selected game piece who's move is being checked.
+   * @return Boolean true if the move takes a piece, false if it does not.
+   */
   public boolean takesPiece(int newX, int newY, Piece currentPiece) {
     int currentX = currentPiece.getxPos();
     int currentY = currentPiece.getyPos();
@@ -113,6 +130,15 @@ public class Board {
     }
   }
   
+  /**
+   * This method checks if a move is legal under the rules of each game, checking what type of game is currently being played.
+   * If the move is legal, it returns true, if the move is illegal, it returns false.
+   * 
+   * @param newX The integer of the new x position on the board of the selected piece.
+   * @param newY The integer of the new y position on the board of the selected piece.
+   * @param currentPiece The object Piece of the selected game piece that is going to be moved.
+   * @return true if the move is deemed to be legal within the rules of the game and false if it is deemed to be illegal.
+   */
   public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
     Type pieceType = currentPiece.getType();
     switch(this.game) {
