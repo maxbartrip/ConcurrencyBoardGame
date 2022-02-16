@@ -115,9 +115,6 @@ public class Board {
   
   public boolean isMoveLegal(int newX, int newY, Piece currentPiece) {
     Type pieceType = currentPiece.getType();
-    Colour pieceColour = currentPiece.getColour();
-    int currentX = currentPiece.getxPos();
-    int currentY = currentPiece.getyPos();
     switch(this.game) {
     case CHECKERS:
       if((currentPiece != null) && (newX < 8) && (newY < 8) && (this.tiles[newX][newY] == null)) {
