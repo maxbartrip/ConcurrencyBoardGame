@@ -118,6 +118,7 @@ class BoardTest {
     
     Piece newPiece = new Piece(Type.CHECKERS_MAN, 3, 4, Colour.WHITE);
     boardArray[3][4] = newPiece;
+    int whiteCount = gameBoard.getCount(Colour.WHITE);
     //Manually adding piece in take-able position.
     blackPiece = boardArray[2][5];
     gameBoard.makeMove(4, 3, blackPiece);
@@ -127,5 +128,6 @@ class BoardTest {
     assertEquals(newY, 3, "The new Y position of the black piece should be changed to the input position.");
     assertEquals(boardArray[4][3], blackPiece, "Check to see if the position of the black piece in the array has been updated.");
     assertEquals(boardArray[3][4], null, "Check that the taken piece has been removed from the board array.");
+    assertEquals(gameBoard.getCount(Colour.WHITE), whiteCount-1, "Check that the count of white pieces has been decreased by one when a piece is taken.");
   }
 }
