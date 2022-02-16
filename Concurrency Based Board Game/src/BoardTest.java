@@ -73,4 +73,21 @@ class BoardTest {
     testPiece = boardArray[7][2];
     assertFalse(gameBoard.takesPiece(6, 3, testPiece), "This move should not take any piece.");
   }
+  
+  @Test
+  void testIsLegal() {
+    setupCheckers();
+    Piece blackPiece = boardArray[0][5];
+    Piece whitePiece = boardArray[1][2];
+    assertTrue(gameBoard.isMoveLegal(1, 4, blackPiece), "A diagonal move forward of a black piece should be considered a legal move.");
+    assertTrue(gameBoard.isMoveLegal(0, 3, whitePiece), "A diagonal move forward of a white piece should be considered a legal move.");
+    assertFalse(gameBoard.isMoveLegal(0, 4, blackPiece), "A move forward of a black piece should not be considered a legal move and should return false.");
+    assertFalse(gameBoard.isMoveLegal(1, 3, whitePiece), "A move forward of a white piece should not be considered a legal move and should return false.");
+    assertFalse(gameBoard.isMoveLegal(0, 5, blackPiece), "A move backwards of a black piece should not be considered a legal move and should return false.");
+    assertFalse(gameBoard.isMoveLegal(1, 1, whitePiece), "A move backwards of a white piece should not be considered a legal move and should return false.");
+    assertFalse(gameBoard.isMoveLegal(1, 6, blackPiece), "A diagonally backwards move of a black piece, that lands on a piece should return false.");
+    assertFalse(gameBoard.isMoveLegal(0, 1, whitePiece), "A diagonally backwards move of a white piece, that lands on a piece should return false.");
+    assertFalse(gameBoard.isMoveLegal(2, 3, blackPiece), "A diagonal move forwards of a black piece of more than one place should return false.");
+    assertFalse(gameBoard.isMoveLegal(3, 4, whitePiece), "A diagonal move forwards of a white piece of more than one place should return false.");
+  }
 }
