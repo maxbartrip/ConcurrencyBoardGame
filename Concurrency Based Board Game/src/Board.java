@@ -183,6 +183,19 @@ public class Board {
     if(isMoveLegal(newX, newY, currentPiece)) {
       int oldX = currentPiece.getxPos();
       int oldY = currentPiece.getyPos();
+      if (takesPiece(newX, newY, currentPiece)) {
+        int betweenX = oldX + (newX-oldX)/2;
+        int betweenY = oldY + (newY-oldY)/2;
+        Colour takenColour = this.tiles[betweenX][betweenY].getColour();
+        boolean isWhite = takenColour.equals(Colour.WHITE);
+        if(isWhite) {
+          this.whiteCount--;
+        }
+        else {
+          this.blackCount--;
+        }
+        this.tiles[betweenX][betweenY] = null;
+      }
       this.tiles[oldX][oldY] = null;
       currentPiece.setXPos(newX);
       currentPiece.setYPos(newY);
