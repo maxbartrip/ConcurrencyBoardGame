@@ -115,5 +115,17 @@ class BoardTest {
     assertEquals(newX, 0, "The new X position of the white piece should be changed to the input position.");
     assertEquals(newY, 3, "The new Y position of the white piece should be changed to the input position.");
     assertEquals(boardArray[0][3], whitePiece, "Check to see if the position of the white piece in the array has been updated.");
+    
+    Piece newPiece = new Piece(Type.CHECKERS_MAN, 3, 4, Colour.WHITE);
+    boardArray[3][4] = newPiece;
+    //Manually adding piece in take-able position.
+    blackPiece = boardArray[2][5];
+    gameBoard.makeMove(4, 3, blackPiece);
+    newX = blackPiece.getxPos();
+    newY = blackPiece.getyPos();
+    assertEquals(newX, 4, "The new X position of the black piece should be changed to the input position.");
+    assertEquals(newY, 3, "The new Y position of the black piece should be changed to the input position.");
+    assertEquals(boardArray[4][3], blackPiece, "Check to see if the position of the black piece in the array has been updated.");
+    assertEquals(boardArray[3][4], null, "Check that the taken piece has been removed from the board array.");
   }
 }
