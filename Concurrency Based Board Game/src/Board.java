@@ -87,6 +87,17 @@ public class Board {
     return Math.max(Math.abs(newY - currentPiece.getyPos()), Math.abs(newX - currentPiece.getxPos()));
   }
   
+  public boolean isForward(int newX, int newY, Piece currentPiece) {
+    Colour pieceColour = currentPiece.getColour();
+    int currentY = currentPiece.getyPos();
+    if ((currentY+1 == newY && pieceColour == Colour.WHITE) || (currentY-1 == newY && pieceColour == Colour.BLACK)) {
+      return true;
+    }
+    else {
+      return false;
+    }    
+  }
+  
   public boolean takesPiece(int newX, int newY, Piece currentPiece) {
     int currentX = currentPiece.getxPos();
     int currentY = currentPiece.getyPos();
@@ -110,10 +121,10 @@ public class Board {
     switch(this.game) {
     case CHECKERS:
       if((currentPiece != null) && (newX < 8) && (newY < 8) && (this.tiles[newX][newY] == null)) {
-        if((pieceType == Type.CHECKERS_MAN && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) == 1) && ((currentY+1 == newY && pieceColour == Colour.WHITE) || (currentY-1 == newY && pieceColour == Colour.BLACK)))) {
+        if((pieceType == Type.CHECKERS_MAN && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) == 1) && isForward(newX, newY, currentPiece))) {
           return true;
         }
-        else if((pieceType==Type.CHECKERS_KING && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) < 3))) {
+        else if((pieceType==Type.CHECKERS_KING && isMoveDiagonal(newX, newY, currentPiece))) {
           return true;
         }
         else if(takesPiece(newX, newY, currentPiece)) {
