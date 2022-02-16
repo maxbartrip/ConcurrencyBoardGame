@@ -79,15 +79,41 @@ class BoardTest {
     setupCheckers();
     Piece blackPiece = boardArray[0][5];
     Piece whitePiece = boardArray[1][2];
+    //Legal move
     assertTrue(gameBoard.isMoveLegal(1, 4, blackPiece), "A diagonal move forward of a black piece should be considered a legal move.");
     assertTrue(gameBoard.isMoveLegal(0, 3, whitePiece), "A diagonal move forward of a white piece should be considered a legal move.");
+    //Illegal forward move
     assertFalse(gameBoard.isMoveLegal(0, 4, blackPiece), "A move forward of a black piece should not be considered a legal move and should return false.");
     assertFalse(gameBoard.isMoveLegal(1, 3, whitePiece), "A move forward of a white piece should not be considered a legal move and should return false.");
+    //Illegal backwards move
     assertFalse(gameBoard.isMoveLegal(0, 5, blackPiece), "A move backwards of a black piece should not be considered a legal move and should return false.");
     assertFalse(gameBoard.isMoveLegal(1, 1, whitePiece), "A move backwards of a white piece should not be considered a legal move and should return false.");
+    //Illegal backwards move onto piece
     assertFalse(gameBoard.isMoveLegal(1, 6, blackPiece), "A diagonally backwards move of a black piece, that lands on a piece should return false.");
     assertFalse(gameBoard.isMoveLegal(0, 1, whitePiece), "A diagonally backwards move of a white piece, that lands on a piece should return false.");
+    //Illegal forwards diagonal move
     assertFalse(gameBoard.isMoveLegal(2, 3, blackPiece), "A diagonal move forwards of a black piece of more than one place should return false.");
     assertFalse(gameBoard.isMoveLegal(3, 4, whitePiece), "A diagonal move forwards of a white piece of more than one place should return false.");
+  }
+  
+  @Test
+  void testMove() {
+    setupCheckers();
+    Piece blackPiece = boardArray[0][5];
+    Piece whitePiece = boardArray[1][2];
+    
+    gameBoard.makeMove(1, 4, blackPiece);
+    int newX = blackPiece.getxPos();
+    int newY = blackPiece.getyPos();
+    assertEquals(newX, 1, "The new X position of the black piece should be changed to the input position.");
+    assertEquals(newY, 4, "The new Y position of the black piece should be changed to the input position.");
+    assertEquals(boardArray[1][4], blackPiece, "Check to see if the position of the black piece in the array has been updated.");
+    
+    gameBoard.makeMove(0, 3, whitePiece);
+    newX = whitePiece.getxPos();
+    newY = whitePiece.getyPos();
+    assertEquals(newX, 0, "The new X position of the white piece should be changed to the input position.");
+    assertEquals(newY, 3, "The new Y position of the white piece should be changed to the input position.");
+    assertEquals(boardArray[0][3], whitePiece, "Check to see if the position of the white piece in the array has been updated.");
   }
 }
