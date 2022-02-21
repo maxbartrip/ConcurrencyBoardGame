@@ -88,5 +88,14 @@ public class Piece {
       throw new FileNotFoundException("ERROR: Image cannot be located.");
     }
     return stream;
-  }  
+  }
+  
+  /**
+   * This method returns the opposite colour of the piece, e.g. if the piece is a white piece, black will be returned and vice versa.
+   * 
+   * @return The opposite colour of the piece.
+   */
+  public Colour getOpposite() {
+    return this.colour.getOpposite();
+  }
 }
