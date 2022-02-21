@@ -227,7 +227,7 @@ public class Board {
   }
   
   /**
-   * This is a simple getter method that is used for testing purposes.
+   * This is a simple getter method that returns the array used to store pieces.
    * 
    * @return the Piece[][] tiles which represents the board.
    */
