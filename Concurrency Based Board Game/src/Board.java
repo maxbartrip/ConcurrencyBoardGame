@@ -179,6 +179,18 @@ public class Board {
     }
   }
   
+  /**
+   * This method first checks if the move to be made is legal:
+   * 
+   * If it is legal, it sets the position in the tiles array where the selected piece resides to null and sets the new position on tiles to be the selected piece.
+   * The current x and y of the Piece object is then updated to match its new position in the tiles array.
+   * 
+   * If it is not legal, it prints a message to the console stating that the move is not legal, and therefore the move has not been completed.
+   * 
+   * @param newX The integer of the new x position on the board of the selected piece.
+   * @param newY The integer of the new y position on the board of the selected piece.
+   * @param currentPiece The object Piece of the selected game piece that is going to be moved.
+   */
   public void makeMove(int newX, int newY, Piece currentPiece) {
     if(isMoveLegal(newX, newY, currentPiece)) {
       int oldX = currentPiece.getxPos();
