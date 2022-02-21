@@ -10,6 +10,7 @@ public class Board {
   private int size;
   private int whiteCount;
   private int blackCount;
+  private Colour turn;
   
   /**
    * This is the constructor for the board class, it checks which game the user wants to play and sets up a data structure to store pieces accordingly.
@@ -24,6 +25,7 @@ public class Board {
     case CHECKERS:
       this.size = 8;
       this.tiles = new Piece[this.size][this.size];
+      this.turn = Colour.BLACK;
       for(int x = 0; x < 8; x++) {
         for(int y = 0; y < 8; y++) {
           // Setting up positions of white pieces
@@ -192,7 +194,7 @@ public class Board {
    * @param currentPiece The object Piece of the selected game piece that is going to be moved.
    */
   public void makeMove(int newX, int newY, Piece currentPiece) {
-    if(isMoveLegal(newX, newY, currentPiece)) {
+    if((this.turn == currentPiece.getColour()) && (isMoveLegal(newX, newY, currentPiece))) {
       int oldX = currentPiece.getxPos();
       int oldY = currentPiece.getyPos();
       if (takesPiece(newX, newY, currentPiece)) {
@@ -212,6 +214,7 @@ public class Board {
       currentPiece.setXPos(newX);
       currentPiece.setYPos(newY);
       this.tiles[newX][newY] = currentPiece;
+      this.turn = currentPiece.getOpposite();
     }
     
     else {
