@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -24,8 +25,8 @@ public class MainMenu extends Application {
     stage.setTitle("Main Menu");
     
     Text menuTitle = new Text();
-    menuTitle.setFont(Font.font(null, 20));
-    menuTitle.setText("Please choose a game to play");
+    menuTitle.setFont(Font.font("Century Gothic", FontWeight.BOLD, 40));
+    menuTitle.setText("Concurrency Based Board Game Collection");
     Image checkersLogo = null;
     ImageView checkersView = new ImageView();
     Image chessLogo = null;
@@ -67,7 +68,6 @@ public class MainMenu extends Application {
       e.printStackTrace();
     }
     
-    Button checkersBtn = new Button("Play Checkers");
     ArrayList<Image> imgList = new ArrayList<>();
     imgList.add(checkersLogo);
     imgList.add(chessLogo);
@@ -75,16 +75,25 @@ public class MainMenu extends Application {
     imgList.add(gomokuLogo);
     imgList.add(damaLogo);
     
+    Font btnFont = Font.font("Century Gothic", 20);
+    
+    Button checkersBtn = new Button("Play Checkers");
+    checkersBtn.setFont(btnFont);
+    
     Button chessBtn = new Button("Play Chess");
+    chessBtn.setFont(btnFont);
     chessBtn.setDisable(true);
     
     Button draughtsBtn = new Button("Play Polish Draughts");
+    draughtsBtn.setFont(btnFont);
     draughtsBtn.setDisable(true);
     
     Button gomokuBtn = new Button("Play Gomoku");
+    gomokuBtn.setFont(btnFont);
     gomokuBtn.setDisable(true);
     
     Button damaBtn = new Button("Play Dama");
+    damaBtn.setFont(btnFont);
     damaBtn.setDisable(true);
     
     if(!(imgList.contains(null))) {
@@ -101,6 +110,7 @@ public class MainMenu extends Application {
     }
     
     Button startBtn = new Button("Start Game");
+    startBtn.setFont(btnFont);
     
     checkersBtn.setOnAction(new EventHandler<ActionEvent>() {
       @Override
