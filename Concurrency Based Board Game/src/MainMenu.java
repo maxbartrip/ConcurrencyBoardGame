@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -144,6 +146,28 @@ public class MainMenu extends Application {
       @Override
       public void handle(ActionEvent event) {
         selectedGame = GameType.DAMA;
+      }
+    });
+    
+    startBtn.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        if (selectedGame != null) {
+          Board gameBoard = new Board(selectedGame);
+          GameInterface gameUI = new GameInterface(gameBoard);
+          Scene gameScene = gameUI.getScene();
+          Stage newStage = new Stage();
+          newStage.setScene(gameScene);
+          newStage.setResizable(false);
+          newStage.show();
+        }
+        else {
+          Alert plsSelect = new Alert(AlertType.WARNING);
+          plsSelect.setTitle("No game selected!");
+          plsSelect.setHeaderText("No game has been selected!");
+          plsSelect.setContentText("Please select a game before clicking start game.");
+          plsSelect.showAndWait();
+        }
       }
     });
     
