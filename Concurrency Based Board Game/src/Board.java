@@ -257,7 +257,6 @@ public class Board {
     else {
       return this.whiteCount;
     }
-  }
-  
+  } 
   
 }

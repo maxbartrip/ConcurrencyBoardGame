@@ -5,14 +5,19 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Window;
 
 public class GameInterface {
   
@@ -65,6 +70,55 @@ public class GameInterface {
           dark = false;
         }
         Tile newTile = new Tile(dark, i, j);
+        
+        newTile.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+          @Override
+          public void handle(MouseEvent event) {
+            if(event.getButton() == MouseButton.MIDDLE) {
+              Alert gameWon = new Alert(AlertType.WARNING);
+              gameWon.setTitle("BLACK WINS!");
+              gameWon.setHeaderText("GAME OVER!");
+              gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
+              gameWon.showAndWait();
+              Window stage = newTile.getScene().getWindow();
+              stage.hide();
+              return;
+            }
+            if (selectedPiece==null) {
+              chat.appendText("ERROR: No piece elected. Please select a piece by clicking on it before making a move.\n");
+            }
+            else if(!gameBoard.isMoveLegal(newTile.getBoardX(), newTile.getBoardY(), selectedPiece)){
+              chat.appendText("ERROR: Illegal move. The move you attempted is illegal. A legal move for a man is only in the forward direction and must be diagonal, a king can move any direction as long as it is diagonal.\n");
+            }
+            
+            else {
+              gameBoard.makeMove(newTile.getBoardX(), newTile.getBoardY(), selectedPiece);
+              updateBoard(gameBoard);
+              selectedPiece=null;
+              if (gameBoard.getCount(Colour.WHITE) == 0) {
+                Alert gameWon = new Alert(AlertType.WARNING);
+                gameWon.setTitle("BLACK WINS!");
+                gameWon.setHeaderText("GAME OVER!");
+                gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
+                gameWon.showAndWait();
+                Window stage = newTile.getScene().getWindow();
+                stage.hide();
+              }
+              else if(gameBoard.getCount(Colour.BLACK) == 0) {
+                Alert gameWon = new Alert(AlertType.WARNING);
+                gameWon.setTitle("WHITE WINS!");
+                gameWon.setHeaderText("GAME OVER!");
+                gameWon.setContentText("THE WINNER IS WHITE!\nClosing game.");
+                gameWon.showAndWait();
+                Window stage = newTile.getScene().getWindow();
+                stage.hide();
+              }
+            }
+          }
+          
+        });
+        
         tileGroup.getChildren().add(newTile);
       }
     }
@@ -109,6 +163,15 @@ public class GameInterface {
             checkersView.setSmooth(true);
             checkersView.setX(i*64);
             checkersView.setY(j*64);
+            
+            checkersView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+              @Override
+              public void handle(MouseEvent event) {
+                int pieceX = (int) checkersView.getX()/64;
+                int pieceY = (int) checkersView.getY()/64;
+                selectedPiece = pieceArray[pieceX][pieceY];
+              }
+            });
             
             this.pieceGroup.getChildren().add(checkersView);
           }
