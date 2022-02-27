@@ -157,6 +157,7 @@ public class MainMenu extends Application {
           GameInterface gameUI = new GameInterface(gameBoard);
           Scene gameScene = gameUI.getScene();
           Stage newStage = new Stage();
+          newStage.setTitle(selectedGame.toString());
           newStage.setScene(gameScene);
           newStage.setResizable(false);
           newStage.show();
