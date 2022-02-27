@@ -84,6 +84,12 @@ public class GameInterface {
     return gameScene;
   }
   
+  /**
+   * This method updates the interface to display the position of the pieces based on the Board that is passed to it.
+   * It also provides interaction with the pieces, allowing the user to select a piece and a new position on the interface.
+   * 
+   * @param gameBoard the Board of the game being played.
+   */
   public void updateBoard(Board gameBoard) {
     int boardSize = gameBoard.getSize();
     Piece[][] pieceArray = gameBoard.getBoard();
