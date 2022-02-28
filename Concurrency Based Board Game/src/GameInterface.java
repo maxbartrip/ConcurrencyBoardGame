@@ -179,4 +179,13 @@ public class GameInterface {
       }
     }
   }
+  
+  /**
+   * This method returns the TextArea on the scene, so that other parts of the program can interact with it and print to the chat.
+   * 
+   * @return the chat TextArea on the interface.
+   */
+  public TextArea getChat() {
+    return chat;
+  }
 }
