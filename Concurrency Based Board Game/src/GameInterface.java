@@ -170,6 +170,9 @@ public class GameInterface {
                 int pieceX = (int) checkersView.getX()/64;
                 int pieceY = (int) checkersView.getY()/64;
                 selectedPiece = pieceArray[pieceX][pieceY];
+                if (event.getButton() == MouseButton.SECONDARY) {
+                  selectedPiece.setType(Type.CHECKERS_KING);
+                }
               }
             });
             

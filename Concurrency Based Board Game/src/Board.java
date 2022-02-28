@@ -124,7 +124,7 @@ public class Board {
     int betweenY = currentY + (newY - currentY)/2;
     Piece takenPiece = this.tiles[betweenX][betweenY];
     Colour pieceColour = currentPiece.getColour();
-    if(takenPiece!=null && isMoveDiagonal(newX, newY, currentPiece) && ((currentY+2 == newY && pieceColour == Colour.WHITE) || (currentY-2 == newY && pieceColour == Colour.BLACK) || currentPiece.getType() == Type.CHECKERS_KING) && takenPiece.getColour()!=currentPiece.getColour()) {
+    if(takenPiece!=null && isMoveDiagonal(newX, newY, currentPiece) && ((currentY+2 == newY && pieceColour == Colour.WHITE) || (currentY-2 == newY && pieceColour == Colour.BLACK) || (currentPiece.getType() == Type.CHECKERS_KING && moveDistance(newX, newY, currentPiece) == 2)) && takenPiece.getColour()!=currentPiece.getColour()) {
       return true;
     }
     else {
@@ -149,7 +149,7 @@ public class Board {
         if((pieceType == Type.CHECKERS_MAN && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) == 1) && isForward(newX, newY, currentPiece))) {
           return true;
         }
-        else if((pieceType==Type.CHECKERS_KING && isMoveDiagonal(newX, newY, currentPiece))) {
+        else if((pieceType==Type.CHECKERS_KING && isMoveDiagonal(newX, newY, currentPiece) && (moveDistance(newX, newY, currentPiece) == 1))) {
           return true;
         }
         else if(takesPiece(newX, newY, currentPiece)) {
