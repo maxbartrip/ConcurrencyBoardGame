@@ -159,7 +159,14 @@ public class GameInterface {
               public void handle(MouseEvent event) {
                 int pieceX = (int) checkersView.getX()/64;
                 int pieceY = (int) checkersView.getY()/64;
-                selectedPiece = pieceArray[pieceX][pieceY];
+                Piece newSelectedPiece = pieceArray[pieceX][pieceY];
+                if (newSelectedPiece.getColour() == gameBoard.getTurn()) {
+                  selectedPiece = pieceArray[pieceX][pieceY];
+                }
+                else {
+                  selectedPiece = null;
+                  chat.appendText("ERROR: It is currently "+gameBoard.getTurn()+"'s turn. You can only select a piece when it is that colour's turn.\n");
+                }
               }
             });
             

@@ -253,6 +253,15 @@ public class Board {
     else {
       return this.whiteCount;
     }
-  } 
+  }
+  
+  /**
+   * This is a simple getter method that returns the colour who's turn it currently is.
+   * 
+   * @return the Colour who's turn it is to move next.
+   */
+  public Colour getTurn() {
+    return this.turn;
+  }
   
 }
