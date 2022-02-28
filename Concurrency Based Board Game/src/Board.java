@@ -217,10 +217,6 @@ public class Board {
       this.turn = currentPiece.getOpposite();
     }
     
-    else {
-      System.out.println("That move is illegal.");
-    }
-    
     if((currentPiece.getColour() == Colour.WHITE && newY == 7) || (currentPiece.getColour() == Colour.BLACK && newY == 0)) {
       currentPiece.setType(Type.CHECKERS_KING);
     }

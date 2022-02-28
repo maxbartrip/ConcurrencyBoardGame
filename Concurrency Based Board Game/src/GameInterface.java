@@ -75,16 +75,6 @@ public class GameInterface {
 
           @Override
           public void handle(MouseEvent event) {
-            if(event.getButton() == MouseButton.MIDDLE) {
-              Alert gameWon = new Alert(AlertType.WARNING);
-              gameWon.setTitle("BLACK WINS!");
-              gameWon.setHeaderText("GAME OVER!");
-              gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
-              gameWon.showAndWait();
-              Window stage = newTile.getScene().getWindow();
-              stage.hide();
-              return;
-            }
             if (selectedPiece==null) {
               chat.appendText("ERROR: No piece elected. Please select a piece by clicking on it before making a move.\n");
             }
@@ -170,9 +160,6 @@ public class GameInterface {
                 int pieceX = (int) checkersView.getX()/64;
                 int pieceY = (int) checkersView.getY()/64;
                 selectedPiece = pieceArray[pieceX][pieceY];
-                if (event.getButton() == MouseButton.SECONDARY) {
-                  selectedPiece.setType(Type.CHECKERS_KING);
-                }
               }
             });
             
