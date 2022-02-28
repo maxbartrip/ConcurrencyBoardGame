@@ -153,13 +153,8 @@ public class MainMenu extends Application {
       @Override
       public void handle(ActionEvent event) {
         if (selectedGame != null) {
-          Board gameBoard = new Board(selectedGame);
-          GameInterface gameUI = new GameInterface(gameBoard);
-          Scene gameScene = gameUI.getScene();
           Stage newStage = new Stage();
-          newStage.setTitle(selectedGame.toString());
-          newStage.setScene(gameScene);
-          newStage.setResizable(false);
+          newStage.setScene(multiplayerMenu(selectedGame));
           newStage.show();
         }
         else {
@@ -180,6 +175,40 @@ public class MainMenu extends Application {
     stage.setScene(menuScene);
     stage.show();
     startBtn.requestFocus();
+  }
+  
+  public Scene multiplayerMenu(GameType selectedGame) {
+    Text menuTitle = new Text("Local or Online Multiplayer?");
+    menuTitle.setFont(Font.font("Century Gothic", FontWeight.BOLD, 40));
+    Font btnFont = Font.font("Century Gothic", 20);
+    
+    Button local = new Button("Local");
+    local.setFont(btnFont);
+    
+    local.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        Board gameBoard = new Board(selectedGame);
+        GameInterface gameUI = new GameInterface(gameBoard);
+        Scene gameScene = gameUI.getScene();
+        Stage currentStage = (Stage) local.getScene().getWindow();
+        currentStage.setTitle(selectedGame.toString());
+        currentStage.setScene(gameScene);
+        currentStage.setResizable(false);
+        currentStage.show();
+      }
+    });
+    
+    Button online = new Button("Online");
+    online.setFont(btnFont);
+    online.setDisable(true);
+    
+    HBox buttonLayout = new HBox(20, local, online);
+    buttonLayout.setAlignment(Pos.CENTER);
+    VBox menuLayout = new VBox(20, menuTitle, buttonLayout);
+    menuLayout.setAlignment(Pos.CENTER);
+    Scene multiplayerScene = new Scene(menuLayout, 1024, 576);
+    return multiplayerScene;
   }
   
   public static void main(String[] args) {
