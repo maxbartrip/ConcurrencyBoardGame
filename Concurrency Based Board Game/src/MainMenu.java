@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -190,7 +191,6 @@ public class MainMenu extends Application {
     
     Button online = new Button("Online");
     online.setFont(btnFont);
-    //online.setDisable(true);
     
     Text onlineText = new Text("Would you like to host a game or join a game?");
     onlineText.setFont(titleFont);
@@ -204,10 +204,27 @@ public class MainMenu extends Application {
     back.setLayoutY(0);
     HBox onlineButtons = new HBox(20, host, join);
     onlineButtons.setAlignment(Pos.CENTER);
-    VBox onlineLayout = new VBox(20, onlineText, onlineButtons);
+    VBox onlineLayout = new VBox(20, onlineText, onlineButtons, back);
     onlineLayout.setAlignment(Pos.CENTER);
     Pane onlineMenu = new Pane();
     Scene onlineScene = new Scene(onlineLayout, 1024, 576);
+    
+    Text connectTitle = new Text("Connect to Server");
+    connectTitle.setFont(titleFont);
+    Text giveIP = new Text("Server address");
+    giveIP.setFont(btnFont);
+    TextField inputIP = new TextField();
+    inputIP.setMaxWidth(500);
+    inputIP.setFont(btnFont);
+    Button connect = new Button("Join Server");
+    connect.setFont(btnFont);
+    Button cancel = new Button("Cancel");
+    cancel.setFont(btnFont);
+    HBox connectButtons = new HBox(20, connect, cancel);
+    connectButtons.setAlignment(Pos.CENTER);
+    VBox connectMenu = new VBox(20, connectTitle, giveIP, inputIP, connectButtons);
+    connectMenu.setAlignment(Pos.CENTER);
+    Scene connectScene = new Scene(connectMenu, 1024, 576);
     
     HBox buttonLayout = new HBox(20, local, online);
     buttonLayout.setAlignment(Pos.CENTER);
@@ -235,7 +252,44 @@ public class MainMenu extends Application {
       public void handle(ActionEvent event) {
         Stage currentStage = (Stage) online.getScene().getWindow();
         currentStage.setScene(onlineScene);
-        currentStage.show();
+      }
+    });
+    
+    host.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        
+      }
+    });
+    
+    join.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        Stage currentStage = (Stage) join.getScene().getWindow();
+        currentStage.setScene(connectScene);
+      }
+    });
+    
+    back.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.setScene(multiplayerScene);
+      }
+    });
+    
+    connect.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        
+      }
+    });
+    
+    cancel.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        Stage currentStage = (Stage) cancel.getScene().getWindow();
+        currentStage.setScene(onlineScene);
       }
     });
     
