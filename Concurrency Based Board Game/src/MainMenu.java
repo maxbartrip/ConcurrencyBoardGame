@@ -6,12 +6,13 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -178,12 +179,43 @@ public class MainMenu extends Application {
   }
   
   public Scene multiplayerMenu(GameType selectedGame) {
-    Text menuTitle = new Text("Local or Online Multiplayer?");
-    menuTitle.setFont(Font.font("Century Gothic", FontWeight.BOLD, 40));
+    Font titleFont = Font.font("Century Gothic", FontWeight.BOLD, 40);
     Font btnFont = Font.font("Century Gothic", 20);
+    
+    Text menuTitle = new Text("Local or Online Multiplayer?");
+    menuTitle.setFont(titleFont);
     
     Button local = new Button("Local");
     local.setFont(btnFont);
+    
+    Button online = new Button("Online");
+    online.setFont(btnFont);
+    //online.setDisable(true);
+    
+    Text onlineText = new Text("Would you like to host a game or join a game?");
+    onlineText.setFont(titleFont);
+    Button host = new Button("Host a game");
+    host.setFont(btnFont);
+    Button join = new Button("Join a game");
+    join.setFont(btnFont);
+    Button back = new Button("Back");
+    back.setFont(btnFont);
+    back.setLayoutX(0);
+    back.setLayoutY(0);
+    HBox onlineButtons = new HBox(20, host, join);
+    onlineButtons.setAlignment(Pos.CENTER);
+    VBox onlineLayout = new VBox(20, onlineText, onlineButtons);
+    onlineLayout.setAlignment(Pos.CENTER);
+    Pane onlineMenu = new Pane();
+    Scene onlineScene = new Scene(onlineLayout, 1024, 576);
+    
+    HBox buttonLayout = new HBox(20, local, online);
+    buttonLayout.setAlignment(Pos.CENTER);
+    VBox menuLayout = new VBox(20, menuTitle, buttonLayout);
+    menuLayout.setAlignment(Pos.CENTER);
+    Scene multiplayerScene = new Scene(menuLayout, 1024, 576);
+    
+    // Button functionalities
     
     local.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -195,19 +227,18 @@ public class MainMenu extends Application {
         currentStage.setTitle(selectedGame.toString());
         currentStage.setScene(gameScene);
         currentStage.setResizable(false);
+      }
+    });
+    
+    online.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        Stage currentStage = (Stage) online.getScene().getWindow();
+        currentStage.setScene(onlineScene);
         currentStage.show();
       }
     });
     
-    Button online = new Button("Online");
-    online.setFont(btnFont);
-    online.setDisable(true);
-    
-    HBox buttonLayout = new HBox(20, local, online);
-    buttonLayout.setAlignment(Pos.CENTER);
-    VBox menuLayout = new VBox(20, menuTitle, buttonLayout);
-    menuLayout.setAlignment(Pos.CENTER);
-    Scene multiplayerScene = new Scene(menuLayout, 1024, 576);
     return multiplayerScene;
   }
   
