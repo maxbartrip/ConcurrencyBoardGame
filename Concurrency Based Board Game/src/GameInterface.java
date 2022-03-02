@@ -27,6 +27,7 @@ public class GameInterface {
   private Group pieceGroup;
   private TextArea chat;
   private HBox gameBox;
+  private TextField inputField;
   
   /**
    * This constructor takes a gameBoard and creates a visual board that can be displayed on a javaFX interface, based on the board that has been input.
@@ -44,7 +45,7 @@ public class GameInterface {
     this.chat.setWrapText(true);
     this.chat.setFont(Font.font("Century Gothic", 14));
     this.gameBox = new HBox(20);
-    TextField inputField = new TextField();
+    this.inputField = new TextField();
     inputField.setFont(Font.font("Century Gothic", 14));
     
     inputField.setOnAction(new EventHandler<ActionEvent>() {
@@ -138,6 +139,23 @@ public class GameInterface {
     
     chat.appendText("IP = "+ip+":"+port+"\n");
     chat.appendText("Waiting for opponent...\n");
+    
+    inputField.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        String message = inputField.getText();
+        inputField.clear();
+        chat.appendText(message+"\n");
+        
+        try {
+          connection.send(message);
+        }
+        catch (Exception e) {
+          chat.appendText("Error: Failed to send message\n");
+          e.printStackTrace();
+        }
+      }
+    });
   }
   
   /**
@@ -152,6 +170,23 @@ public class GameInterface {
     this(gameBoard);
     NetworkConnection connection = new Client(ip, port, chat);
     connection.startConnection();
+    
+    inputField.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        String message = inputField.getText();
+        inputField.clear();
+        chat.appendText(message+"\n");
+        
+        try {
+          connection.send(message);
+        }
+        catch (Exception e) {
+          chat.appendText("Error: Failed to send message\n");
+          e.printStackTrace();
+        }
+      }
+    });
   }
   
   /**
