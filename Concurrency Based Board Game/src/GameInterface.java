@@ -119,6 +119,13 @@ public class GameInterface {
     inputField.requestFocus();
   }
   
+  /**
+   * This is an additional constructor method that sets up a Server on a given port and outputs the IP of the server into the chat, for the user to give to their opponent to connect.
+   * 
+   * @param gameBoard the gameBoard of the current game so that the board interface can be initialised
+   * @param port the integer port on which the server is to be setup on
+   * @throws Exception
+   */
   public GameInterface(Board gameBoard, int port) throws Exception {
     this(gameBoard);
     NetworkConnection connection = new Server(port, chat);
@@ -133,6 +140,14 @@ public class GameInterface {
     chat.appendText("Waiting for opponent...\n");
   }
   
+  /**
+   * This is an additional constructor method that connects to a Server setup on a given ip and port.
+   * 
+   * @param gameBoard the gameBoard of the current game so that the board interface can be initialised
+   * @param ip the ip address of the Server that is to be connected to
+   * @param port the integer port which the server is setup on
+   * @throws Exception
+   */
   public GameInterface(Board gameBoard, String ip, int port) throws Exception {
     this(gameBoard);
     NetworkConnection connection = new Client(ip, port, chat);
