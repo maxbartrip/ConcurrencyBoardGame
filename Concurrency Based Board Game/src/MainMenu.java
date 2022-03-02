@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -252,13 +253,26 @@ public class MainMenu extends Application {
       public void handle(ActionEvent event) {
         Stage currentStage = (Stage) online.getScene().getWindow();
         currentStage.setScene(onlineScene);
+        currentStage.setResizable(false);
       }
     });
     
     host.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        
+        Board gameBoard = new Board(selectedGame);
+        Random rand = new Random();
+        int port = rand.nextInt(65536);
+        try {
+          GameInterface gameUI = new GameInterface(gameBoard, port);
+          Scene gameScene = gameUI.getScene();
+          Stage currentStage = (Stage) host.getScene().getWindow();
+          currentStage.setScene(gameScene);
+          currentStage.setResizable(false);
+        }
+        catch(Exception e) {
+          e.printStackTrace();
+        }
       }
     });
     
@@ -267,6 +281,7 @@ public class MainMenu extends Application {
       public void handle(ActionEvent event) {
         Stage currentStage = (Stage) join.getScene().getWindow();
         currentStage.setScene(connectScene);
+        currentStage.setResizable(false);
       }
     });
     
@@ -275,13 +290,28 @@ public class MainMenu extends Application {
       public void handle(ActionEvent event) {
         Stage currentStage = (Stage) back.getScene().getWindow();
         currentStage.setScene(multiplayerScene);
+        currentStage.setResizable(false);
       }
     });
     
     connect.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        
+        Board gameBoard = new Board(selectedGame);
+        String fullIp = inputIP.getText();
+        String[] ipArray = fullIp.split(":");
+        String ip = ipArray[0];
+        int port = Integer.parseInt(ipArray[1]);
+        try {
+          GameInterface gameUI = new GameInterface(gameBoard, ip, port);
+          Scene gameScene = gameUI.getScene();
+          Stage currentStage = (Stage) connect.getScene().getWindow();
+          currentStage.setScene(gameScene);
+          currentStage.setResizable(false);
+        }
+        catch(Exception e) {
+          e.printStackTrace();
+        }
       }
     });
     
@@ -290,6 +320,7 @@ public class MainMenu extends Application {
       public void handle(ActionEvent event) {
         Stage currentStage = (Stage) cancel.getScene().getWindow();
         currentStage.setScene(onlineScene);
+        currentStage.setResizable(false);
       }
     });
     

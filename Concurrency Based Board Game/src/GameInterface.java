@@ -1,17 +1,17 @@
 import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -117,6 +117,26 @@ public class GameInterface {
     updateBoard(gameBoard);
     this.gameScene = new Scene(this.gameBox);
     inputField.requestFocus();
+  }
+  
+  public GameInterface(Board gameBoard, int port) throws Exception {
+    this(gameBoard);
+    NetworkConnection connection = new Server(port, chat);
+    connection.startConnection();
+    
+    Socket socket = new Socket();
+    socket.connect(new InetSocketAddress("google.com", 80));
+    String ip = socket.getLocalAddress().toString();
+    ip = ip.substring(1);
+    
+    chat.appendText("IP = "+ip+":"+port+"\n");
+    chat.appendText("Waiting for opponent...\n");
+  }
+  
+  public GameInterface(Board gameBoard, String ip, int port) throws Exception {
+    this(gameBoard);
+    NetworkConnection connection = new Client(ip, port, chat);
+    connection.startConnection();
   }
   
   /**
