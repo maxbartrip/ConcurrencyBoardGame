@@ -145,7 +145,7 @@ public class GameInterface {
       public void handle(ActionEvent event) {
         String message = inputField.getText();
         inputField.clear();
-        chat.appendText(message+"\n");
+        chat.appendText("You: "+message+"\n");
         
         try {
           connection.send(message);
@@ -176,7 +176,7 @@ public class GameInterface {
       public void handle(ActionEvent event) {
         String message = inputField.getText();
         inputField.clear();
-        chat.appendText(message+"\n");
+        chat.appendText("You: "+message+"\n");
         
         try {
           connection.send(message);

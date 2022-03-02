@@ -97,7 +97,7 @@ public abstract class NetworkConnection {
         while (true) {
           String message = input.readUTF();
           Platform.runLater(() -> {
-            messages.appendText(message+"\n");
+            messages.appendText("Opponent: "+message+"\n");
           });
         }
       }
