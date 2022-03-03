@@ -16,8 +16,8 @@ public class Server extends NetworkConnection {
    * @param port the Integer port of the server to be created
    * @param messages the TextArea on the interface where messages are to be displayed
    */
-  public Server(int port, TextArea messages, Board gameBoard) {
-    super(messages, gameBoard);
+  public Server(int port, TextArea messages, Board gameBoard, GameInterface gameUI) {
+    super(messages, gameBoard, gameUI);
     this.port = port;
   }
   

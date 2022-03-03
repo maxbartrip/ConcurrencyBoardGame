@@ -129,7 +129,7 @@ public class GameInterface {
    */
   public GameInterface(Board gameBoard, int port) throws Exception {
     this(gameBoard);
-    NetworkConnection connection = new Server(port, chat, gameBoard);
+    NetworkConnection connection = new Server(port, chat, gameBoard, this);
     connection.startConnection();
     
     Socket socket = new Socket();
@@ -168,7 +168,7 @@ public class GameInterface {
    */
   public GameInterface(Board gameBoard, String ip, int port) throws Exception {
     this(gameBoard);
-    NetworkConnection connection = new Client(ip, port, chat, gameBoard);
+    NetworkConnection connection = new Client(ip, port, chat, gameBoard, this);
     connection.startConnection();
     
     inputField.setOnAction(new EventHandler<ActionEvent>() {
