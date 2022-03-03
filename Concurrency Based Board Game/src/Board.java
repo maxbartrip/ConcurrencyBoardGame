@@ -264,4 +264,8 @@ public class Board {
     return this.turn;
   }
   
+  public Piece getPiece(int pieceX, int pieceY) {
+    return this.tiles[pieceX][pieceY];
+  }
+  
 }

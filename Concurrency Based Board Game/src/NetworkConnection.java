@@ -8,13 +8,15 @@ import javafx.scene.control.TextArea;
 
 public abstract class NetworkConnection {
   private ConnectionThread connThread;
+  private Board gameBoard;
   
   /**
    * The constructor method for NetworkConnection, creates a ConnectionThread with the TextArea that is passed to it.
    * 
    * @param messages the TextArea on the interface where messages are displayed
    */
-  public NetworkConnection(TextArea messages) {
+  public NetworkConnection(TextArea messages, Board gameBoard) {
+    this.gameBoard = gameBoard;
     connThread = new ConnectionThread(messages);
     connThread.setDaemon(true);
   }
@@ -97,7 +99,20 @@ public abstract class NetworkConnection {
         while (true) {
           String message = input.readUTF();
           Platform.runLater(() -> {
-            messages.appendText("Opponent: "+message+"\n");
+            if (message.substring(0, 3).equals("MSG")) {
+              messages.appendText("Opponent: "+message.substring(3)+"\n");
+            }
+            if (message.substring(0, 3).equals("MOV")) {
+              String move = message.substring(3);
+              String[] moveArray = move.split(":");
+              // Moves should be sent in the format "MOVpieceX:pieceY:newX:newY"
+              int pieceX = Integer.parseInt(moveArray[0]);
+              int pieceY = Integer.parseInt(moveArray[1]);
+              int newX = Integer.parseInt(moveArray[2]);
+              int newY = Integer.parseInt(moveArray[3]);
+              Piece movePiece = gameBoard.getPiece(pieceX, pieceY);
+              gameBoard.makeMove(newX, newY, movePiece);
+            }
           });
         }
       }

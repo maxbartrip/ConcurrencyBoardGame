@@ -18,8 +18,8 @@ public class Client extends NetworkConnection {
    * @param port the Integer port of the server that is to be connected to
    * @param messages the TextArea on the interface where messages are to be displayed
    */
-  public Client(String ip, int port, TextArea messages) {
-    super(messages);
+  public Client(String ip, int port, TextArea messages, Board gameBoard) {
+    super(messages, gameBoard);
     this.ip = ip;
     this.port = port;
   }
