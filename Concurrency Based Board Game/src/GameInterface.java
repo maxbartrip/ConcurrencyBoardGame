@@ -28,6 +28,8 @@ public class GameInterface {
   private TextArea chat;
   private HBox gameBox;
   private TextField inputField;
+  private NetworkConnection connection;
+  private boolean connected = false;
   
   /**
    * This constructor takes a gameBoard and creates a visual board that can be displayed on a javaFX interface, based on the board that has been input.
@@ -84,8 +86,17 @@ public class GameInterface {
             }
             
             else {
+              int pieceX = selectedPiece.getxPos();
+              int pieceY = selectedPiece.getyPos();
               gameBoard.makeMove(newTile.getBoardX(), newTile.getBoardY(), selectedPiece);
               updateBoard(gameBoard);
+              if(connected) {
+                try {
+                  connection.send("MOV"+pieceX+":"+pieceY+":"+newTile.getBoardX()+":"+newTile.getBoardY());
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
               selectedPiece=null;
               if (gameBoard.getCount(Colour.WHITE) == 0) {
                 Alert gameWon = new Alert(AlertType.WARNING);
@@ -129,8 +140,9 @@ public class GameInterface {
    */
   public GameInterface(Board gameBoard, int port) throws Exception {
     this(gameBoard);
-    NetworkConnection connection = new Server(port, chat, gameBoard, this);
+    this.connection = new Server(port, chat, gameBoard, this);
     connection.startConnection();
+    this.connected = true;
     
     Socket socket = new Socket();
     socket.connect(new InetSocketAddress("google.com", 80));
@@ -148,7 +160,7 @@ public class GameInterface {
         chat.appendText("You: "+message+"\n");
         
         try {
-          connection.send(message);
+          connection.send("MSG"+message);
         }
         catch (Exception e) {
           chat.appendText("Error: Failed to send message\n");
@@ -168,8 +180,9 @@ public class GameInterface {
    */
   public GameInterface(Board gameBoard, String ip, int port) throws Exception {
     this(gameBoard);
-    NetworkConnection connection = new Client(ip, port, chat, gameBoard, this);
+    this.connection = new Client(ip, port, chat, gameBoard, this);
     connection.startConnection();
+    this.connected = true;
     
     inputField.setOnAction(new EventHandler<ActionEvent>() {
       @Override
@@ -179,7 +192,7 @@ public class GameInterface {
         chat.appendText("You: "+message+"\n");
         
         try {
-          connection.send(message);
+          connection.send("MSG"+message);
         }
         catch (Exception e) {
           chat.appendText("Error: Failed to send message\n");
