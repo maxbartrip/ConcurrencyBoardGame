@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class GameInterface {
@@ -98,27 +99,8 @@ public class GameInterface {
                 }
               }
               selectedPiece=null;
-              if (gameBoard.getCount(Colour.WHITE) == 0) {
-                Alert gameWon = new Alert(AlertType.WARNING);
-                gameWon.setTitle("BLACK WINS!");
-                gameWon.setHeaderText("GAME OVER!");
-                gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
-                gameWon.showAndWait();
-                Window stage = newTile.getScene().getWindow();
-                stage.hide();
-              }
-              else if(gameBoard.getCount(Colour.BLACK) == 0) {
-                Alert gameWon = new Alert(AlertType.WARNING);
-                gameWon.setTitle("WHITE WINS!");
-                gameWon.setHeaderText("GAME OVER!");
-                gameWon.setContentText("THE WINNER IS WHITE!\nClosing game.");
-                gameWon.showAndWait();
-                Window stage = newTile.getScene().getWindow();
-                stage.hide();
-              }
             }
           }
-          
         });
         
         tileGroup.getChildren().add(newTile);
@@ -260,6 +242,25 @@ public class GameInterface {
           }
         }
       }
+    }
+    
+    if (gameBoard.getCount(Colour.WHITE) == 0) {
+      Alert gameWon = new Alert(AlertType.WARNING);
+      gameWon.setTitle("BLACK WINS!");
+      gameWon.setHeaderText("GAME OVER!");
+      gameWon.setContentText("THE WINNER IS BLACK!\nClosing game.");
+      gameWon.showAndWait();
+      Stage gameStage = (Stage) gameScene.getWindow();
+      gameStage.close();
+    }
+    else if(gameBoard.getCount(Colour.BLACK) == 0) {
+      Alert gameWon = new Alert(AlertType.WARNING);
+      gameWon.setTitle("WHITE WINS!");
+      gameWon.setHeaderText("GAME OVER!");
+      gameWon.setContentText("THE WINNER IS WHITE!\nClosing game.");
+      gameWon.showAndWait();
+      Stage gameStage = (Stage) gameScene.getWindow();
+      gameStage.close();
     }
   }
   
