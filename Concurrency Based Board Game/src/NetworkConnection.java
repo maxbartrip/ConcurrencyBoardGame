@@ -1,10 +1,14 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 public abstract class NetworkConnection {
   private ConnectionThread connThread;
@@ -118,6 +122,18 @@ public abstract class NetworkConnection {
             }
           });
         }
+      }
+      catch (BindException e) {
+        //e.printStackTrace();
+        Platform.runLater(() -> {
+          Alert error = new Alert(AlertType.ERROR);
+          error.setTitle("ERROR: Failed to set up server");
+          error.setHeaderText("ERROR: Failed to set up server");
+          error.setContentText("Server already running on port. Please try again.");
+          error.showAndWait();
+          Stage gameStage = (Stage) gameUI.getScene().getWindow();
+          gameStage.close();
+        });
       }
       catch (Exception e) {
         e.printStackTrace();
